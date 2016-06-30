@@ -14,7 +14,7 @@ on country IP, the user will be redirected to a region or to another one). It
 has the following features:
 
  * This module defines "Website regions" vocabulary, a block that allows users
-   to change the region and a regional filter for views.
+   to change the region and a regional filter for views and blocks.
 
  * When user reaches the web for first time, the user is redirected to a region
    given the country of their IP address and "Website regions" terms hierarchy.
@@ -56,6 +56,8 @@ CONFIGURATION
 
  * Edit your content views and add the filter "Custom: Regional filter" to them.
    From now on, your views will get filtered given user's selected region.
+
+ * Edit your blocks and configure the regions where they should appear.
    
  * IMPORTANT: Move "Regional content switcher" block to a region of your frontend
    theme. THIS BLOCK IS REQUIRED FOR THIS MODULE TO WORK WELL!
