@@ -1,0 +1,12 @@
+#regional-switcher li {
+  float: left;
+  margin-right: 10px;
+}
+
+#regional-switcher li a {
+  color: #333333;
+}
+
+#regional-switcher li a.active {
+  color: #e54c4c;
+}

@@ -1,0 +1,151 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall handling of module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function regional_content_install() {
+
+  regional_content_region_vocabulary_creation();
+
+  // Set module weight for it to run after all block visibility modules have run
+  db_query("UPDATE {system} SET weight = 101 WHERE name = 'regional_content' AND type = 'module'");
+
+  drupal_set_message('Please, read README.txt to set up this module correctly');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function regional_content_uninstall() {
+  
+  // Vocabulary deletion.
+  $vocab = taxonomy_vocabulary_machine_name_load('regional_content_reg');
+  taxonomy_vocabulary_delete($vocab->vid);
+
+  // Variable clean-up.
+  variable_del('regional_content_global_tid');
+  variable_del('regional_content_global_lists_all');
+  unset($_SESSION['regional_content_region']);
+}
+
+/**
+ * Creates the region vocabulary.
+ */
+function regional_content_region_vocabulary_creation() {
+  
+  // Vocabulary creation.
+  $new_vocab = (object) array(
+    'name' => 'Website regions',
+    'description' => 'Automatically created by "Regional content" module',
+    'machine_name' => 'regional_content_reg',
+  );
+  taxonomy_vocabulary_save($new_vocab);
+
+  // Default taxonomy terms (can be customized later via GUI).
+  $regions = array('GLOBAL', 'ASIA', 'MEXICO', 'USA', 'EGYPT');
+  $vocab = taxonomy_vocabulary_machine_name_load('regional_content_reg');
+
+  /*
+   * Default regions (top level).
+   */
+  foreach($regions as $r) {
+ 
+    $term = (object) array(
+      'name' => $r,
+      'description' => 'Default region',
+      'vid' => $vocab->vid,
+    );
+    taxonomy_term_save($term);
+
+    if ($r == 'GLOBAL' && !empty($term->tid)) {
+      // We save the global region tid.
+      variable_set('regional_content_global_tid', $term->tid);
+    }
+  }
+
+  // Default taxonomy terms tid recovery.
+  $regions_tid = array(
+    'GLOBAL' => taxonomy_get_term_by_name('GLOBAL', 'regional_content_reg'),
+    'ASIA'  => taxonomy_get_term_by_name('ASIA', 'regional_content_reg'),
+    'MEXICO'  => taxonomy_get_term_by_name('MEXICO', 'regional_content_reg'),
+    'USA'  => taxonomy_get_term_by_name('USA', 'regional_content_reg'),
+    'EGYPT' => taxonomy_get_term_by_name('EGYPT', 'regional_content_reg'),
+  );
+  
+  /*
+   * Default countries (second level).
+   */
+  $regions = regional_content_countries_vocabulary_hardcoded_list();
+
+  foreach($regions as $r) {
+  
+    $list = array_values($regions_tid[$r['region_text']]);
+    $tid = $list[0]->tid;
+ 
+    $term = (object) array(
+      'name' => $r['name'],
+      'description' =>  $r['country_code'],
+      'parent' => $tid,
+      'vid' => $vocab->vid,
+    );
+    taxonomy_term_save($term);
+  }
+}
+
+/**
+ * Returns all the default country list. This configuration is used to return a
+ * region given visitors country.
+ */
+function regional_content_countries_vocabulary_hardcoded_list() {
+
+  $regions = array();
+  $regions[] = array('name' => 'Spain', 'country_code' => 'ES', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'United States', 'country_code' => 'US', 'region_text' => 'USA');
+  $regions[] = array('name' => 'Mexico', 'country_code' => 'MX', 'region_text' => 'MEXICO');
+  $regions[] = array('name' => 'Egypt', 'country_code' => 'EG', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Thailand', 'country_code' => 'TH', 'region_text' => 'ASIA');
+  
+  return $regions;
+}
+
+/**
+ * Implements hook_schema().
+ *
+ * Database for storing block visibility given selected region.
+ */
+function regional_content_schema() {
+  $schema['regional_content_region'] = array(
+    'description' => 'Sets block visibility based on region',
+    'fields' => array(
+      'module' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'description' => "The block's origin module, from {block}.module.",
+      ),
+      'delta' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'description' => "The block's unique delta within module, from {block}.delta.",
+      ),
+      'region' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => "Region plain-text name",
+      ),
+    ),
+    'primary key' => array('module', 'delta', 'region'),
+    'indexes' => array(
+      'region' => array('region'),
+    ),
+  );
+  return $schema;
+}

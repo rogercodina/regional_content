@@ -1,0 +1,230 @@
+<?php
+
+/**
+ * Regional content main file.
+ */
+
+require_once('regional_content.block.inc');
+
+/**
+ * Implements hook_menu().
+ */
+function regional_content_menu() {
+  $items = array();
+
+  $items['change-region'] = array(
+    'title' => 'Webcase',
+    'page callback' => 'regional_content_change_region',
+    'access arguments' => array(2),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['admin/config/user-interface/regional_content'] = array(
+    'title' => 'Regional content',
+    'description' => 'Change settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('regional_content_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'regional_content.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function regional_content_block_info() {
+  
+  $blocks['regional_content_switcher'] = array(
+    'info' => t('Regional content switcher'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function regional_content_block_view($delta = '') {
+  global $language;
+
+  /*
+   * User just entered the web: so we check if the country code can be determined by the IP.
+   * In that case, we determine default region given its country.
+   */
+  $current_ip = ip_address();
+  $usr_has_web_session = regional_content_has_web_session();
+  drupal_load('module', 'ip2country');
+  if (!$usr_has_web_session && $country_code = ip2country_get_country($current_ip)) {
+    regional_content_change_region_by_country_code($country_code);
+  }
+
+  /*
+   * Region switcher block building.
+   */
+  $block = array();
+
+  switch ($delta) {
+    case 'regional_content_switcher':
+
+      $html = '';
+      $destination = current_path();
+      $regions = regional_content_get_all_regions();
+      $current_region = regional_content_get_current_region();
+      foreach ($regions as $r) {
+        $active = ($r->tid == $current_region) ? 'class="active"' : '';
+        $html .= '<li><a href="/change-region/' . $r->tid . '?destination=' . $destination . '" ' . $active .' rel="no-follow">' . $r->name . '</a></li>';
+      }
+
+      $block = array(
+        'subject' => '',
+        'content' => '<ul id="regional-switcher">' . $html . '</ul>',
+      );
+      break;
+       default:
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Manual region change callback().
+ */
+function regional_content_change_region($tid) {
+  $_SESSION['regional_content_region'] = $tid;
+  if (isset($_GET['destination'])) {
+    drupal_goto('/' . $_GET['destination']);
+  }
+  else {
+    drupal_goto('<front>');
+  }
+}
+
+/**
+ * Automatically change region given country code of visitor.
+ */
+function regional_content_change_region_by_country_code($country_code) {
+  $vocab = taxonomy_vocabulary_machine_name_load('regional_content_reg');
+    
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'taxonomy_term')
+    ->propertyCondition('vid', $vocab->vid)
+    ->propertyCondition('description', $country_code, '=')
+    ->propertyOrderBy('weight');
+  $result = $query->execute();
+  
+  if (!empty($result['taxonomy_term'])) {
+    $taxonomies = array_values($result['taxonomy_term']);
+
+    $region = taxonomy_get_parents($taxonomies[0]->tid);
+    
+    if (!empty($region)) {
+      $parents = array_values($region);
+      $parent = $parents[0];
+  
+      $_SESSION['regional_content_region'] = $parent->tid;
+    }
+  }
+  
+  // Default region if not set.
+  if (!isset($_SESSION['regional_content_region'])) {
+    $_SESSION['regional_content_region'] = variable_get('regional_content_global_tid');
+  }
+}
+
+/**
+ * Returns if the user has a session.
+ */
+function regional_content_has_web_session() {
+  return isset($_SESSION['regional_content_region']);
+}
+
+/**
+ * Returns current region.
+ */
+function regional_content_get_current_region() {
+  // Default region if not set.
+  if (!isset($_SESSION['regional_content_region'])) {
+    $_SESSION['regional_content_region'] = variable_get('regional_content_global_tid');
+  }
+  return $_SESSION['regional_content_region'];
+}
+
+/**
+ * Returns all regions.
+ */
+function regional_content_get_all_regions() {
+  $vocab = taxonomy_vocabulary_machine_name_load('regional_content_reg');
+  $regions = taxonomy_get_tree($vocab->vid, 0, 1);
+
+  return $regions;
+}
+
+/**
+ * Returns all regions for select form.
+ */
+function regional_content_get_all_regions_select($none = true) {
+  $regions = regional_content_get_all_regions();
+
+  if ($none) {
+    $out = array(0 => t('- None -'));
+  }
+  else {
+    $out = array();
+  }
+
+  foreach($regions as $r) {
+    $out[$r->tid] = $r->name;
+  }
+
+  return $out;
+}
+
+/**
+ * Implements hook_views_api().
+ *
+ * Views integration.
+ */
+function regional_content_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'regional_content') . '/inc',
+  );
+}
+
+/**
+ * Implements hook_views_data().
+ *
+ * Views integration.
+ */
+function regional_content_views_data() {
+  $data = array();
+
+  $data['views']['regional_filter'] = array(
+  'group' => t('Custom'),
+    'title' => t('Regional filter.'),
+    'help' => t('Filters by selected region.'),
+    'filter' => array(
+      'path' => drupal_get_path('module', 'regional_content') . '/inc',
+      'handler' => 'regional_content_handler_filter_region',
+    )
+  );
+
+  return $data;
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ *
+ * Scans for node forms with "field_regional_content" field to delete second level terms of field widget.
+ */
+function regional_content_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['field_regional_content'])) {
+    $form['field_regional_content'][LANGUAGE_NONE]['#options'] = regional_content_get_all_regions_select(false);
+  }
+}
