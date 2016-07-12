@@ -54,6 +54,10 @@ CONFIGURATION
    point to "Website regions" vocabulary. If you use Search API module, remember
    to index the new field in your indexes!
 
+   Once you have the field set up, import the view inside file er_region_view.txt
+   going to admin/structure/views/import (put er_region as view name). Then edit
+   the field again, and select that view as Entity selection method.
+
  * Edit your content views and add the filter "Custom: Regional filter" to them.
    From now on, your views will get filtered given user's selected region.
 
