@@ -15,7 +15,7 @@ function regional_content_install() {
   // Set module weight for it to run after all block visibility modules have run
   db_query("UPDATE {system} SET weight = 101 WHERE name = 'regional_content' AND type = 'module'");
 
-  drupal_set_message('Please, read README.txt to set up this module correctly');
+  drupal_set_message('Please, read README.txt to set up Regional content module correctly');
 }
 
 /**
@@ -104,12 +104,285 @@ function regional_content_region_vocabulary_creation() {
 function regional_content_countries_vocabulary_hardcoded_list() {
 
   $regions = array();
+
+  // GLOBAL.
+  $regions[] = array('name' => 'Afghanistan', 'country_code' => 'AF', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Albania', 'country_code' => 'AL', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Antarctica', 'country_code' => 'AQ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Algeria', 'country_code' => 'DZ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'American Samoa', 'country_code' => 'AS', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Andorra', 'country_code' => 'AD', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Angola', 'country_code' => 'AO', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Antigua and Barbuda', 'country_code' => 'AG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Azerbaijan', 'country_code' => 'AZ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Argentina', 'country_code' => 'AR', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Austria', 'country_code' => 'AT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Bahamas', 'country_code' => 'BS', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Armenia', 'country_code' => 'AM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Barbados', 'country_code' => 'BB', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Belgium', 'country_code' => 'BE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Bermuda', 'country_code' => 'BM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Bhutan', 'country_code' => 'BT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Bolivia (Plurinational State of)', 'country_code' => 'BO', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Bosnia and Herzegovina', 'country_code' => 'BA', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Botswana', 'country_code' => 'BW', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Bouvet Island', 'country_code' => 'BV', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Brazil', 'country_code' => 'BR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'British Indian Ocean Territory', 'country_code' => 'IO', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Solomon Islands', 'country_code' => 'SB', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Virgin Islands (British)', 'country_code' => 'VG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Bulgaria', 'country_code' => 'BG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Burundi', 'country_code' => 'BI', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Belarus', 'country_code' => 'BY', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Cameroon', 'country_code' => 'CM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Cabo Verde', 'country_code' => 'CV', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Cayman Islands', 'country_code' => 'KY', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Central African Republic', 'country_code' => 'CF', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Chad', 'country_code' => 'TD', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Chile', 'country_code' => 'CL', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Colombia', 'country_code' => 'CO', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Comoros', 'country_code' => 'KM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Mayotte', 'country_code' => 'YT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Congo', 'country_code' => 'CG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Congo (Democratic Republic of the)', 'country_code' => 'CD', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Cook Islands', 'country_code' => 'CK', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Croatia', 'country_code' => 'HR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Cuba', 'country_code' => 'CU', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Cyprus', 'country_code' => 'CY', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Czech Republic', 'country_code' => 'CZ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Benin', 'country_code' => 'BJ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Denmark', 'country_code' => 'DK', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Dominica', 'country_code' => 'DM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Ecuador', 'country_code' => 'EC', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Equatorial Guinea', 'country_code' => 'GQ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Ethiopia', 'country_code' => 'ET', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Estonia', 'country_code' => 'EE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Faroe Islands', 'country_code' => 'FO', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Falkland Islands (Malvinas)', 'country_code' => 'FK', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'South Georgia and the South Sandwich Islands', 'country_code' => 'GS', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Fiji', 'country_code' => 'FJ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Finland', 'country_code' => 'FI', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Åland Islands', 'country_code' => 'AX', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'France', 'country_code' => 'FR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'French Guiana', 'country_code' => 'GF', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'French Polynesia', 'country_code' => 'PF', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'French Southern Territories', 'country_code' => 'TF', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Gabon', 'country_code' => 'GA', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Georgia', 'country_code' => 'GE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Gambia', 'country_code' => 'GM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Palestine, State of', 'country_code' => 'PS', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Germany', 'country_code' => 'DE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Ghana', 'country_code' => 'GH', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Gibraltar', 'country_code' => 'GI', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Kiribati', 'country_code' => 'KI', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Greece', 'country_code' => 'GR', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Greenland', 'country_code' => 'GL', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Grenada', 'country_code' => 'GD', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Guadeloupe', 'country_code' => 'GP', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Guinea', 'country_code' => 'GN', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Guyana', 'country_code' => 'GY', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Haiti', 'country_code' => 'HT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Heard Island and McDonald Islands', 'country_code' => 'HM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Holy See', 'country_code' => 'VA', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Hungary', 'country_code' => 'HU', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Iceland', 'country_code' => 'IS', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'India', 'country_code' => 'IN', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Indonesia', 'country_code' => 'ID', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Iran (Islamic Republic of)', 'country_code' => 'IR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Ireland', 'country_code' => 'IE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Israel', 'country_code' => 'IL', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Italy', 'country_code' => 'IT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Côte d\'Ivoire', 'country_code' => 'CI', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Jamaica', 'country_code' => 'JM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Kazakhstan', 'country_code' => 'KZ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Kenya', 'country_code' => 'KE', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Kyrgyzstan', 'country_code' => 'KG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Lebanon', 'country_code' => 'LB', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Lesotho', 'country_code' => 'LS', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Latvia', 'country_code' => 'LV', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Liberia', 'country_code' => 'LR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Libya', 'country_code' => 'LY', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Liechtenstein', 'country_code' => 'LI', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Lithuania', 'country_code' => 'LT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Luxembourg', 'country_code' => 'LU', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Madagascar', 'country_code' => 'MG', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Malawi', 'country_code' => 'MW', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Maldives', 'country_code' => 'MV', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Mali', 'country_code' => 'ML', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Malta', 'country_code' => 'MT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Martinique', 'country_code' => 'MQ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Mauritania', 'country_code' => 'MR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Mauritius', 'country_code' => 'MU', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Monaco', 'country_code' => 'MC', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Moldova (Republic of)', 'country_code' => 'MD', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Montenegro', 'country_code' => 'ME', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Montserrat', 'country_code' => 'MS', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Morocco', 'country_code' => 'MA', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Mozambique', 'country_code' => 'MZ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Namibia', 'country_code' => 'NA', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Nauru', 'country_code' => 'NR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Netherlands', 'country_code' => 'NL', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Curaçao', 'country_code' => 'CW', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Aruba', 'country_code' => 'AW', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Sint Maarten (Dutch part)', 'country_code' => 'SX', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Bonaire, Sint Eustatius and Saba', 'country_code' => 'BQ', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'New Caledonia', 'country_code' => 'NC', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Vanuatu', 'country_code' => 'VU', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Niger', 'country_code' => 'NE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Nigeria', 'country_code' => 'NG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Niue', 'country_code' => 'NU', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Norfolk Island', 'country_code' => 'NF', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Norway', 'country_code' => 'NO', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Northern Mariana Islands', 'country_code' => 'MP', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Micronesia (Federated States of)', 'country_code' => 'FM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Marshall Islands', 'country_code' => 'MH', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Palau', 'country_code' => 'PW', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Papua New Guinea', 'country_code' => 'PG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Paraguay', 'country_code' => 'PY', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Peru', 'country_code' => 'PE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Philippines', 'country_code' => 'PH', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Pitcairn', 'country_code' => 'PN', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Poland', 'country_code' => 'PL', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Portugal', 'country_code' => 'PT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Guinea-Bissau', 'country_code' => 'GW', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Puerto Rico', 'country_code' => 'PR', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Réunion', 'country_code' => 'RE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Romania', 'country_code' => 'RO', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Russian Federation', 'country_code' => 'RU', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Rwanda', 'country_code' => 'RW', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Saint Barthélemy', 'country_code' => 'BL', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Saint Helena, Ascension and Tristan da Cunha', 'country_code' => 'SH', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Saint Kitts and Nevis', 'country_code' => 'KN', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Anguilla', 'country_code' => 'AI', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Saint Lucia', 'country_code' => 'LC', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Saint Martin (French part)', 'country_code' => 'MF', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Saint Pierre and Miquelon', 'country_code' => 'PM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Saint Vincent and the Grenadines', 'country_code' => 'VC', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'San Marino', 'country_code' => 'SM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Sao Tome and Principe', 'country_code' => 'ST', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Senegal', 'country_code' => 'SN', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Serbia', 'country_code' => 'RS', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Seychelles', 'country_code' => 'SC', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Sierra Leone', 'country_code' => 'SL', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Slovakia', 'country_code' => 'SK', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Slovenia', 'country_code' => 'SI', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'South Africa', 'country_code' => 'ZA', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Zimbabwe', 'country_code' => 'ZW', 'region_text' => 'GLOBAL');
   $regions[] = array('name' => 'Spain', 'country_code' => 'ES', 'region_text' => 'GLOBAL');
-  $regions[] = array('name' => 'United States', 'country_code' => 'US', 'region_text' => 'USA');
+  $regions[] = array('name' => 'Western Sahara', 'country_code' => 'EH', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Suriname', 'country_code' => 'SR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Svalbard and Jan Mayen', 'country_code' => 'SJ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Swaziland', 'country_code' => 'SZ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Sweden', 'country_code' => 'SE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Switzerland', 'country_code' => 'CH', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Tajikistan', 'country_code' => 'TJ', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Togo', 'country_code' => 'TG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Tokelau', 'country_code' => 'TK', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Tonga', 'country_code' => 'TO', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Trinidad and Tobago', 'country_code' => 'TT', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Tunisia', 'country_code' => 'TN', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Turkey', 'country_code' => 'TR', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Turkmenistan', 'country_code' => 'TM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Turks and Caicos Islands', 'country_code' => 'TC', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Tuvalu', 'country_code' => 'TV', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Uganda', 'country_code' => 'UG', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Ukraine', 'country_code' => 'UA', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Macedonia (the former Yugoslav Republic of)', 'country_code' => 'MK', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'United Kingdom of Great Britain and Northern Ireland', 'country_code' => 'GB', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Guernsey', 'country_code' => 'GG', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Jersey', 'country_code' => 'JE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Isle of Man', 'country_code' => 'IM', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Tanzania, United Republic of', 'country_code' => 'TZ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Virgin Islands (U.S.)', 'country_code' => 'VI', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Burkina Faso', 'country_code' => 'BF', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Uruguay', 'country_code' => 'UY', 'region_text' => 'GLOBAL');
+
+  $regions[] = array('name' => 'Uzbekistan', 'country_code' => 'UZ', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Venezuela (Bolivarian Republic of)', 'country_code' => 'VE', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Wallis and Futuna', 'country_code' => 'WF', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Samoa', 'country_code' => 'WS', 'region_text' => 'GLOBAL');
+  $regions[] = array('name' => 'Zambia', 'country_code' => 'ZM', 'region_text' => 'GLOBAL');
+
+  // USA.
+  $regions[] = array('name' => 'Canada', 'country_code' => 'CA', 'region_text' => 'USA');
+  $regions[] = array('name' => 'United States Minor Outlying Islands', 'country_code' => 'UM', 'region_text' => 'USA');
+  $regions[] = array('name' => 'United States of America', 'country_code' => 'US', 'region_text' => 'USA');
+
+  // MEXICO.
+  $regions[] = array('name' => 'Belize', 'country_code' => 'BZ', 'region_text' => 'MEXICO');
+  $regions[] = array('name' => 'Costa Rica', 'country_code' => 'CR', 'region_text' => 'MEXICO');
+  $regions[] = array('name' => 'Dominican Republic', 'country_code' => 'DO', 'region_text' => 'MEXICO');
+  $regions[] = array('name' => 'El Salvador', 'country_code' => 'SV', 'region_text' => 'MEXICO');
+  $regions[] = array('name' => 'Guatemala', 'country_code' => 'GT', 'region_text' => 'MEXICO');
+  $regions[] = array('name' => 'Honduras', 'country_code' => 'HN', 'region_text' => 'MEXICO');
   $regions[] = array('name' => 'Mexico', 'country_code' => 'MX', 'region_text' => 'MEXICO');
+  $regions[] = array('name' => 'Nicaragua', 'country_code' => 'NI', 'region_text' => 'MEXICO');
+  $regions[] = array('name' => 'Panama', 'country_code' => 'PA', 'region_text' => 'MEXICO');
+
+  // EGYPT.
+  $regions[] = array('name' => 'Bahrain', 'country_code' => 'BH', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Eritrea', 'country_code' => 'ER', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Djibouti', 'country_code' => 'DJ', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Iraq', 'country_code' => 'IQ', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Jordan', 'country_code' => 'JO', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Kuwait', 'country_code' => 'KW', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Oman', 'country_code' => 'OM', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Pakistan', 'country_code' => 'PK', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Qatar', 'country_code' => 'QA', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Saudi Arabia', 'country_code' => 'SA', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Somalia', 'country_code' => 'SO', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'South Sudan', 'country_code' => 'SS', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Sudan', 'country_code' => 'SD', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Syrian Arab Republic', 'country_code' => 'SY', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'United Arab Emirates', 'country_code' => 'AE', 'region_text' => 'EGYPT');
   $regions[] = array('name' => 'Egypt', 'country_code' => 'EG', 'region_text' => 'EGYPT');
+  $regions[] = array('name' => 'Yemen', 'country_code' => 'YE', 'region_text' => 'EGYPT');
+
+  // ASIA.
+  $regions[] = array('name' => 'Australia', 'country_code' => 'AU', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Bangladesh', 'country_code' => 'BD', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Brunei Darussalam', 'country_code' => 'BN', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Myanmar', 'country_code' => 'MM', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Cambodia', 'country_code' => 'KH', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Sri Lanka', 'country_code' => 'LK', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'China', 'country_code' => 'CN', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Taiwan, Province of China[a]', 'country_code' => 'TW', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Christmas Island', 'country_code' => 'CX', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Cocos (Keeling) Islands', 'country_code' => 'CC', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Guam', 'country_code' => 'GU', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Hong Kong', 'country_code' => 'HK', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Japan', 'country_code' => 'JP', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Korea (Democratic People\'s Republic of)', 'country_code' => 'KP', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Korea (Republic of)', 'country_code' => 'KR', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Lao People\'s Democratic Republic', 'country_code' => 'LA', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Macao', 'country_code' => 'MO', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Malaysia', 'country_code' => 'MY', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Mongolia', 'country_code' => 'MN', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Nepal', 'country_code' => 'NP', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'New Zealand', 'country_code' => 'NZ', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Timor-Leste', 'country_code' => 'TL', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Singapore', 'country_code' => 'SG', 'region_text' => 'ASIA');
+  $regions[] = array('name' => 'Viet Nam', 'country_code' => 'VN', 'region_text' => 'ASIA');
   $regions[] = array('name' => 'Thailand', 'country_code' => 'TH', 'region_text' => 'ASIA');
-  
+
   return $regions;
 }
 
